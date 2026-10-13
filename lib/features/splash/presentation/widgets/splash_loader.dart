@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 
@@ -15,13 +16,14 @@ class SplashLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox.square(
-          dimension: 46,
+          dimension: 38,
           child: CircularProgressIndicator(
-            strokeWidth: 4,
+            strokeWidth: 3,
             backgroundColor: theme.colorScheme.primary.withValues(alpha: .12),
             strokeCap: StrokeCap.round,
           ),
@@ -30,16 +32,24 @@ class SplashLoader extends StatelessWidget {
         Text(
           arabicLabel,
           textDirection: TextDirection.rtl,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.w700,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.cairo(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            height: 1.4,
+            color: theme.colorScheme.onSurface,
           ),
         ),
-        const SizedBox(height: 2),
+        const SizedBox(height: 1),
         Text(
           englishLabel,
           textDirection: TextDirection.ltr,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.inter(
+            fontSize: 11,
+            fontWeight: FontWeight.w400,
+            height: 1.35,
+            color: theme.colorScheme.onSurfaceVariant.withValues(alpha: .78),
           ),
         ),
       ],
