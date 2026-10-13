@@ -6,20 +6,24 @@ import '../../../../core/theme/app_spacing.dart';
 import 'splash_brand_mark.dart';
 
 class SplashBrand extends StatelessWidget {
-  const SplashBrand({super.key});
+  const SplashBrand({required this.logoSize, super.key});
+
+  final double logoSize;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SplashBrandMark(),
+        SplashBrandMark(size: logoSize),
         const SizedBox(height: AppSpacing.md),
         Text(
           'في السريع',
           textDirection: TextDirection.rtl,
           textAlign: TextAlign.center,
+          maxLines: 1,
           style: theme.textTheme.headlineLarge?.copyWith(
             fontWeight: FontWeight.w800,
             height: 1.05,
@@ -27,7 +31,7 @@ class SplashBrand extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          'Delivery',
+          l10n.deliveryLabel,
           textDirection: TextDirection.ltr,
           style: GoogleFonts.inter(
             fontSize: 17,
@@ -38,9 +42,10 @@ class SplashBrand extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
         Text(
-          context.l10n.appTagline,
+          l10n.appTagline,
           textDirection: context.isRtl ? TextDirection.rtl : TextDirection.ltr,
           textAlign: TextAlign.center,
+          maxLines: 1,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
             fontWeight: FontWeight.w600,
@@ -48,9 +53,10 @@ class SplashBrand extends StatelessWidget {
         ),
         const SizedBox(height: 3),
         Text(
-          context.isRtl ? 'Your needs, delivered fast' : 'كل احتياجاتك... أسرع',
+          l10n.appTaglineSecondary,
           textDirection: context.isRtl ? TextDirection.ltr : TextDirection.rtl,
           textAlign: TextAlign.center,
+          maxLines: 1,
           style: GoogleFonts.inter(
             fontSize: 12.5,
             color: theme.colorScheme.onSurfaceVariant.withValues(alpha: .82),
