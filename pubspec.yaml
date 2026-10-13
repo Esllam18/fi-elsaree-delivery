@@ -28,4 +28,4 @@ flutter:
   generate: true
   assets:
     - assets/branding/
-    - assets/splash/
+    - assets/features/splash/backgrounds/
