@@ -1,0 +1,13 @@
+{
+  "@@locale": "en",
+  "appName": "Fi ElSaree",
+  "welcome": "Welcome",
+  "home": "Home",
+  "orders": "Orders",
+  "addresses": "Addresses",
+  "profile": "Profile",
+  "retry": "Retry",
+  "somethingWentWrong": "Something went wrong",
+  "noInternet": "No internet connection",
+  "loading": "Loading"
+}
