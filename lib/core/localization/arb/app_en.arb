@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
   "appName": "Fi ElSaree",
+  "appTagline": "Your needs, delivered fast",
   "welcome": "Welcome",
   "home": "Home",
   "orders": "Orders",
