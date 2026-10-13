@@ -43,28 +43,25 @@ This document is the project source of truth. Decisions, milestone status, archi
   - [x] semantic color tokens
   - [x] spacing/radius/duration tokens
   - [x] Light/Dark ThemeData
-  - [x] AppButton with loading/disabled behavior
-  - [x] AppTextField
-  - [x] AppSearchField
-  - [x] AppCard
-  - [x] responsive AppPage scaffold
-  - [x] Loading state
-  - [x] Skeleton primitive
-  - [x] Empty state
-  - [x] Error state
-  - [x] Offline state
-  - [x] Warning state
-  - [x] Success state
-  - [x] Permission state
-  - [ ] secondary/outlined/text/destructive button variants
-  - [ ] feedback primitives: snackbar/banner/dialog/bottom-sheet conventions
-  - [ ] visual component showcase + widget tests
+  - [x] primary/secondary/outlined/text/destructive buttons
+  - [x] AppTextField + AppSearchField
+  - [x] AppCard + responsive AppPage
+  - [x] Loading + Skeleton
+  - [x] Empty/Error/Offline/Warning/Success/Permission states
+  - [x] Snackbar/Banner/Dialog/BottomSheet feedback conventions
+  - [x] internal visual component showcase source
+  - [ ] widget tests / visual verification after native Flutter bootstrap
 - [~] M0.4 Supabase — safe compile-time configuration boundary created; actual projects/migrations/RLS still pending
 
 M0 Definition of Done: dev flavor launches, navigation works, localization toggles, shared UI states render, CI passes, and no secrets are committed.
 
 ### M1 — Identity + Address
-Splash/session, Google auth, profile completion, first saved address, address CRUD, RLS tests.
+- [ ] Splash/session gate
+- [ ] Google auth
+- [ ] profile completion
+- [ ] first saved address
+- [ ] address CRUD
+- [ ] RLS tests
 
 ### M2 — First Real Order
 One selected service end-to-end: area pricing, review, create order, status history, success/active order.
@@ -109,15 +106,16 @@ Hardening, release configuration, monitoring, QA, store readiness.
 - DEC-018: Flutter platform folders must be SDK-generated, never hand-fabricated.
 - DEC-019: environment values use dart-defines; secrets stay outside Git.
 - DEC-020: shared UI states/components live under core/ui; feature screens compose them instead of inventing local variants.
+- DEC-021: blocking confirmation uses Dialog; selection/action flows use BottomSheet; transient feedback uses Snackbar; non-blocking persistent context uses Banner.
 
 ## Changelog
 ### 2026-10-13
 - Initialized GitHub source of truth and Flutter source foundation.
 - Added bootstrap, Riverpod, GoRouter, ARB localization, responsive helpers, Result/Failure and environment/Supabase boundary.
 - Added semantic design tokens and Light/Dark themes.
-- Added reusable AppButton, AppTextField, AppSearchField, AppCard and responsive AppPage.
-- Added unified Loading, Skeleton, Empty, Error, Offline, Warning, Success and Permission UI primitives.
-- Splash remains an empty shell intentionally until the design-system gate is complete.
+- Added reusable premium controls, surfaces, unified UI states and feedback primitives.
+- Added internal design-system showcase source for visual verification.
+- Splash remains an empty shell until its visual composition is approved.
 
 ## Next task
-**M0.3c — finish button/feedback variants and create the internal visual component showcase. Then we are at the Splash design gate: choose/approve the Splash composition and implement it as the first real screen.**
+**M1.1 — Splash design gate. Define the first real screen visually (brand mark treatment, composition, motion, Light/Dark behavior, responsive behavior and session-routing responsibility), approve it, then implement the Splash/session gate without mixing auth/business logic into the widget.**
