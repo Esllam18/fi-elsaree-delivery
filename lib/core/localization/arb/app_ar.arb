@@ -1,0 +1,13 @@
+{
+  "@@locale": "ar",
+  "appName": "في السريع",
+  "welcome": "أهلاً بك",
+  "home": "الرئيسية",
+  "orders": "طلباتي",
+  "addresses": "عناويني",
+  "profile": "حسابي",
+  "retry": "إعادة المحاولة",
+  "somethingWentWrong": "حدث خطأ غير متوقع",
+  "noInternet": "لا يوجد اتصال بالإنترنت",
+  "loading": "جارٍ التحميل"
+}
