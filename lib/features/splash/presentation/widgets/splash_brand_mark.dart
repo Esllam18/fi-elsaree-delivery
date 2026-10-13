@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/theme/app_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashBrandMark extends StatelessWidget {
   const SplashBrandMark({super.key});
@@ -9,27 +8,22 @@ class SplashBrandMark extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      width: 92,
-      height: 92,
+      width: 124,
+      height: 124,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [AppColors.accent, AppColors.primary],
-        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.accent.withValues(alpha: dark ? .24 : .18),
-            blurRadius: 28,
-            offset: const Offset(0, 10),
+            color: const Color(0xFF1688FF).withValues(alpha: dark ? .28 : .15),
+            blurRadius: dark ? 38 : 28,
+            spreadRadius: dark ? 2 : 0,
           ),
         ],
       ),
-      child: const Icon(
-        Icons.bolt_rounded,
-        size: 48,
-        color: Colors.white,
+      child: SvgPicture.asset(
+        'assets/branding/fi_elsaree_mark.svg',
+        fit: BoxFit.contain,
+        semanticsLabel: 'Fi ElSaree',
       ),
     );
   }
