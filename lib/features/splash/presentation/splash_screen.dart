@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/localization/context_extensions.dart';
 import '../../../core/theme/app_durations.dart';
 import '../../../core/theme/app_spacing.dart';
 import 'widgets/splash_brand.dart';
 import 'widgets/splash_bubbles.dart';
 import 'widgets/splash_loader.dart';
+import 'widgets/splash_responsive.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -28,8 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final dark = theme.brightness == Brightness.dark;
-    final size = MediaQuery.sizeOf(context);
-    final compactHeight = size.height < 700;
+    final responsive = SplashResponsive.of(context);
+    final l10n = context.l10n;
 
     return Scaffold(
       body: Stack(
@@ -49,27 +51,32 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           const SplashBubbles(),
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-              child: AnimatedOpacity(
-                opacity: _visible ? 1 : 0,
-                duration: AppDurations.slow,
-                curve: Curves.easeOut,
-                child: AnimatedScale(
-                  scale: _visible ? 1 : .965,
-                  duration: AppDurations.slow,
-                  curve: Curves.easeOutCubic,
-                  child: Column(
-                    children: [
-                      const Spacer(flex: 4),
-                      const SplashBrand(),
-                      SizedBox(height: compactHeight ? AppSpacing.xl : 42),
-                      const SplashLoader(
-                        arabicLabel: 'جارٍ التهيئة...',
-                        englishLabel: 'Initializing...',
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: responsive.contentWidth),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                  child: AnimatedOpacity(
+                    opacity: _visible ? 1 : 0,
+                    duration: AppDurations.slow,
+                    curve: Curves.easeOut,
+                    child: AnimatedScale(
+                      scale: _visible ? 1 : .965,
+                      duration: AppDurations.slow,
+                      curve: Curves.easeOutCubic,
+                      child: Column(
+                        children: [
+                          const Spacer(flex: 4),
+                          SplashBrand(logoSize: responsive.logoSize),
+                          SizedBox(height: responsive.brandToLoaderGap),
+                          SplashLoader(
+                            arabicLabel: l10n.initializing,
+                            englishLabel: l10n.initializingSecondary,
+                          ),
+                          const Spacer(flex: 3),
+                        ],
                       ),
-                      const Spacer(flex: 3),
-                    ],
+                    ),
                   ),
                 ),
               ),
