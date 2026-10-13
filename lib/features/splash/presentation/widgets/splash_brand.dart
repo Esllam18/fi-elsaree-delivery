@@ -14,52 +14,61 @@ class SplashBrand extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = context.l10n;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         SplashBrandMark(size: logoSize),
         const SizedBox(height: AppSpacing.md),
         Text(
-          'في السريع',
+          l10n.appName,
           textDirection: TextDirection.rtl,
           textAlign: TextAlign.center,
           maxLines: 1,
-          style: theme.textTheme.headlineLarge?.copyWith(
-            fontWeight: FontWeight.w800,
-            height: 1.05,
+          style: GoogleFonts.cairo(
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+            height: 1.15,
+            color: theme.colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           l10n.deliveryLabel,
           textDirection: TextDirection.ltr,
+          textAlign: TextAlign.center,
+          maxLines: 1,
           style: GoogleFonts.inter(
-            fontSize: 17,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
-            letterSpacing: 4.2,
+            letterSpacing: 3.8,
             color: theme.colorScheme.primary,
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Text(
           l10n.appTagline,
-          textDirection: context.isRtl ? TextDirection.rtl : TextDirection.ltr,
+          textDirection: TextDirection.rtl,
           textAlign: TextAlign.center,
           maxLines: 1,
-          style: theme.textTheme.bodyMedium?.copyWith(
+          style: GoogleFonts.cairo(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            height: 1.4,
             color: theme.colorScheme.onSurfaceVariant,
-            fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 3),
+        const SizedBox(height: 2),
         Text(
           l10n.appTaglineSecondary,
-          textDirection: context.isRtl ? TextDirection.ltr : TextDirection.rtl,
+          textDirection: TextDirection.ltr,
           textAlign: TextAlign.center,
           maxLines: 1,
           style: GoogleFonts.inter(
-            fontSize: 12.5,
-            color: theme.colorScheme.onSurfaceVariant.withValues(alpha: .82),
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            height: 1.35,
+            color: theme.colorScheme.onSurfaceVariant.withValues(alpha: .78),
           ),
         ),
       ],
