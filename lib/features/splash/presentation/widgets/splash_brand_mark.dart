@@ -23,7 +23,7 @@ class SplashBrandMark extends StatelessWidget {
           ],
         ),
         child: Image.asset(
-          'assets/branding/fi_elsaree_logo.png',
+          'assets/branding/logo/fi_elsaree_logo.png',
           fit: BoxFit.contain,
           filterQuality: FilterQuality.high,
           semanticLabel: 'Fi ElSaree',
