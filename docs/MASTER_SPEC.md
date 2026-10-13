@@ -37,9 +37,28 @@ This document is the project source of truth. Decisions, milestone status, archi
 - [x] Product/technical identity fixed
 - [x] Architecture baseline fixed
 - [x] Navy Light/Dark direction fixed
-- [ ] M0.1 Flutter native bootstrap (Android/iOS) + dev/prod flavors — blocked until Flutter SDK-generated platform files are created; do not fabricate them
+- [ ] M0.1 Flutter native bootstrap (Android/iOS) + dev/prod flavors — requires Flutter SDK-generated platform files; never fabricate them
 - [x] M0.2 Source architecture foundation — bootstrap boundary, Riverpod, GoRouter, error/result, responsive layer, environment config, localization config
-- [~] M0.3 Design system — semantic colors, spacing, radius, duration and Light/Dark ThemeData created; reusable premium controls/states still next
+- [~] M0.3 Design system
+  - [x] semantic color tokens
+  - [x] spacing/radius/duration tokens
+  - [x] Light/Dark ThemeData
+  - [x] AppButton with loading/disabled behavior
+  - [x] AppTextField
+  - [x] AppSearchField
+  - [x] AppCard
+  - [x] responsive AppPage scaffold
+  - [x] Loading state
+  - [x] Skeleton primitive
+  - [x] Empty state
+  - [x] Error state
+  - [x] Offline state
+  - [x] Warning state
+  - [x] Success state
+  - [x] Permission state
+  - [ ] secondary/outlined/text/destructive button variants
+  - [ ] feedback primitives: snackbar/banner/dialog/bottom-sheet conventions
+  - [ ] visual component showcase + widget tests
 - [~] M0.4 Supabase — safe compile-time configuration boundary created; actual projects/migrations/RLS still pending
 
 M0 Definition of Done: dev flavor launches, navigation works, localization toggles, shared UI states render, CI passes, and no secrets are committed.
@@ -89,19 +108,16 @@ Hardening, release configuration, monitoring, QA, store readiness.
 - DEC-017: Local user workflow will be one-click Git pull/update + Flutter run on LDPlayer.
 - DEC-018: Flutter platform folders must be SDK-generated, never hand-fabricated.
 - DEC-019: environment values use dart-defines; secrets stay outside Git.
+- DEC-020: shared UI states/components live under core/ui; feature screens compose them instead of inventing local variants.
 
 ## Changelog
 ### 2026-10-13
-- Initialized GitHub source of truth.
-- Added Flutter dependency manifest and strict analysis rules.
-- Added app bootstrap and Riverpod root.
-- Added centralized GoRouter foundation.
-- Added ARB localization configuration and Arabic/English baseline strings.
-- Added responsive breakpoint/helper layer.
-- Added Result/Failure foundation.
-- Added environment/Supabase initialization boundary.
+- Initialized GitHub source of truth and Flutter source foundation.
+- Added bootstrap, Riverpod, GoRouter, ARB localization, responsive helpers, Result/Failure and environment/Supabase boundary.
 - Added semantic design tokens and Light/Dark themes.
-- Added empty Splash feature shell only; visual Splash implementation intentionally not started yet.
+- Added reusable AppButton, AppTextField, AppSearchField, AppCard and responsive AppPage.
+- Added unified Loading, Skeleton, Empty, Error, Offline, Warning, Success and Permission UI primitives.
+- Splash remains an empty shell intentionally until the design-system gate is complete.
 
 ## Next task
-**M0.3b — Build reusable premium UI primitives and unified states (buttons, text fields, search, cards, loading/skeleton, empty, error, offline, warning, success, permission), then review the visual system before implementing the Splash UI.**
+**M0.3c — finish button/feedback variants and create the internal visual component showcase. Then we are at the Splash design gate: choose/approve the Splash composition and implement it as the first real screen.**
