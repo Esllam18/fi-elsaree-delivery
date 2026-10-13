@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/config/app_assets.dart';
 import '../../../core/localization/context_extensions.dart';
 import '../../../core/theme/app_durations.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -31,8 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
     final responsive = SplashResponsive.of(context);
     final l10n = context.l10n;
     final background = dark
-        ? 'assets/features/splash/backgrounds/splash_dark.jpg'
-        : 'assets/features/splash/backgrounds/splash_light.jpg';
+        ? AppAssets.splashBackgroundDark
+        : AppAssets.splashBackgroundLight;
 
     return Scaffold(
       body: Stack(
