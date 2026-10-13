@@ -11,15 +11,16 @@ This document is the project source of truth. Decisions, milestone status, archi
 - Theme: Navy Blue, Light + Dark
 - Typography: Cairo (Arabic), Inter (Latin)
 
-## Architecture
-- Clean Architecture
-- Feature-first modules
-- Riverpod
-- GoRouter
-- Supabase MVP backend behind repositories
-- Server authority for pricing, sensitive order transitions, and authorization
-- RLS baseline, migrations, dev/prod separation
-- Responsive compact UI; no oversized typography
+## Architecture baseline
+- Clean Architecture + feature-first modules
+- Riverpod composition root
+- Central GoRouter
+- Generated ARB localization, Arabic RTL + English LTR
+- Responsive breakpoint layer
+- Shared Result/Failure model
+- Environment abstraction with compile-time dart-defines
+- Supabase isolated at bootstrap/data boundaries; no secrets committed
+- Compact semantic design tokens; no random per-screen values
 
 ## V1 domains
 1. Restaurant / errand delivery
@@ -30,19 +31,16 @@ This document is the project source of truth. Decisions, milestone status, archi
 6. Area-based pricing; embedded paid maps deferred
 7. Customer mobile app, admin web dashboard, lightweight driver web flow
 
-## School transport domain
-Recurring booking with child, guardian, school/nursery, schedule, route, safety data, and audit history.
-
 ## Milestones
 ### M0 — Foundation
 - [x] Repository created and connected
 - [x] Product/technical identity fixed
 - [x] Architecture baseline fixed
 - [x] Navy Light/Dark direction fixed
-- [ ] M0.1 Flutter native bootstrap (Android/iOS) + dev/prod flavors
-- [ ] M0.2 Architecture skeleton: core, feature template, Riverpod, GoRouter, error model
-- [ ] M0.3 Design system: tokens, typography, shared controls/states, RTL/LTR
-- [ ] M0.4 Supabase environments: dev config, production strategy, migrations, RLS baseline
+- [ ] M0.1 Flutter native bootstrap (Android/iOS) + dev/prod flavors — blocked until Flutter SDK-generated platform files are created; do not fabricate them
+- [x] M0.2 Source architecture foundation — bootstrap boundary, Riverpod, GoRouter, error/result, responsive layer, environment config, localization config
+- [~] M0.3 Design system — semantic colors, spacing, radius, duration and Light/Dark ThemeData created; reusable premium controls/states still next
+- [~] M0.4 Supabase — safe compile-time configuration boundary created; actual projects/migrations/RLS still pending
 
 M0 Definition of Done: dev flavor launches, navigation works, localization toggles, shared UI states render, CI passes, and no secrets are committed.
 
@@ -72,9 +70,11 @@ Hardening, release configuration, monitoring, QA, store readiness.
 
 ## Engineering workflow
 - `main` = stable review/run branch.
-- Development is performed in controlled increments and only stable reviewable work lands on `main`.
+- Keep files small and single-purpose; split components before files become catch-all modules.
+- UI never talks directly to Supabase.
+- User-facing strings are localized; no hard-coded production copy in widgets.
 - User review workflow target: one-click Update & Run on LDPlayer.
-- Every completed task updates this file: checklist, decisions, changelog, and next task.
+- Every completed task updates this file.
 
 ## Security rules
 - Never commit service-role keys, signing secrets, passwords, or private credentials.
@@ -87,11 +87,21 @@ Hardening, release configuration, monitoring, QA, store readiness.
 - DEC-015: Navy Light/Dark visual direction selected.
 - DEC-016: GitHub repository is the shared source of truth; `main` is stable review/run branch.
 - DEC-017: Local user workflow will be one-click Git pull/update + Flutter run on LDPlayer.
+- DEC-018: Flutter platform folders must be SDK-generated, never hand-fabricated.
+- DEC-019: environment values use dart-defines; secrets stay outside Git.
 
 ## Changelog
 ### 2026-10-13
 - Initialized GitHub source of truth.
-- Recorded architecture, localization, responsiveness, security, domains, milestones, and review workflow.
+- Added Flutter dependency manifest and strict analysis rules.
+- Added app bootstrap and Riverpod root.
+- Added centralized GoRouter foundation.
+- Added ARB localization configuration and Arabic/English baseline strings.
+- Added responsive breakpoint/helper layer.
+- Added Result/Failure foundation.
+- Added environment/Supabase initialization boundary.
+- Added semantic design tokens and Light/Dark themes.
+- Added empty Splash feature shell only; visual Splash implementation intentionally not started yet.
 
 ## Next task
-**M0.1 — Create/commit a valid Flutter SDK-generated native bootstrap for Android/iOS, then configure dev/prod flavors without fabricating generated native files.**
+**M0.3b — Build reusable premium UI primitives and unified states (buttons, text fields, search, cards, loading/skeleton, empty, error, offline, warning, success, permission), then review the visual system before implementing the Splash UI.**
