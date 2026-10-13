@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashBrandMark extends StatelessWidget {
-  const SplashBrandMark({super.key});
+  const SplashBrandMark({required this.size, super.key});
+
+  final double size;
 
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      width: 124,
-      height: 124,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         boxShadow: [
