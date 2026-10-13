@@ -31,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
     final responsive = SplashResponsive.of(context);
     final l10n = context.l10n;
     final background = dark
-        ? 'assets/branding/splash_dark.jpg'
-        : 'assets/branding/splash_light.jpg';
+        ? 'assets/features/splash/backgrounds/splash_dark.jpg'
+        : 'assets/features/splash/backgrounds/splash_light.jpg';
 
     return Scaffold(
       body: Stack(
