@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_durations.dart';
 import '../../theme/app_radius.dart';
 
 class AppButton extends StatelessWidget {
@@ -21,7 +22,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final child = AnimatedSwitcher(
-      duration: const Duration(milliseconds: 150),
+      duration: AppDurations.fast,
       child: isLoading
           ? const SizedBox.square(
               key: ValueKey('loader'),
