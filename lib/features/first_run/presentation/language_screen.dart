@@ -71,7 +71,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                   ),
                   const Spacer(flex: 2),
                   AppButton(
-                    label: _selected == 'ar' ? l10n.continueLabel : 'Continue',
+                    label: _selected == 'ar' ? l10n.continueLabel : l10n.englishSubtitle,
                     onPressed: () async {
                       await ref
                           .read(appSettingsProvider.notifier)
