@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router/app_routes.dart';
-import '../../../core/localization/context_extensions.dart';
 import '../../../core/settings/app_settings_controller.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/ui/buttons/app_button.dart';
@@ -62,7 +61,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                           selected: _selected == ThemeMode.light,
                           icon: Icons.light_mode_rounded,
                           label: isArabic ? 'فاتح' : 'Light',
-                          onTap: () => setState(() => _selected = ThemeMode.light),
+                          onTap: () => _select(ThemeMode.light),
                         ),
                       ),
                       const SizedBox(width: AppSpacing.md),
@@ -71,7 +70,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                           selected: _selected == ThemeMode.dark,
                           icon: Icons.dark_mode_rounded,
                           label: isArabic ? 'داكن' : 'Dark',
-                          onTap: () => setState(() => _selected = ThemeMode.dark),
+                          onTap: () => _select(ThemeMode.dark),
                         ),
                       ),
                     ],
@@ -94,6 +93,11 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
       ),
     );
   }
+
+  void _select(ThemeMode mode) {
+    setState(() => _selected = mode);
+    ref.read(appSettingsProvider.notifier).setThemeMode(mode);
+  }
 }
 
 class _ThemeCard extends StatelessWidget {
@@ -112,29 +116,35 @@ class _ThemeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    return Material(
-      color: selected ? colors.primaryContainer : colors.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: BorderSide(
-          color: selected ? colors.primary : colors.outlineVariant,
-          width: selected ? 1.5 : 1,
+    return Semantics(
+      selected: selected,
+      button: true,
+      child: Material(
+        color: selected ? colors.primaryContainer : colors.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(
+            color: selected ? colors.primary : colors.outlineVariant,
+            width: selected ? 1.5 : 1,
+          ),
         ),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 12),
-          child: Column(
-            children: [
-              Icon(icon, size: 36, color: colors.primary),
-              const SizedBox(height: 12),
-              Text(label,
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 12),
+            child: Column(
+              children: [
+                Icon(icon, size: 36, color: colors.primary),
+                const SizedBox(height: 12),
+                Text(
+                  label,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
-                      )),
-            ],
+                      ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
