@@ -36,6 +36,10 @@ class AppSettingsController extends Notifier<AppSettingsState> {
     state = AppSettingsState(locale: locale, themeMode: state.themeMode);
   }
 
+  void previewThemeMode(ThemeMode themeMode) {
+    state = AppSettingsState(locale: state.locale, themeMode: themeMode);
+  }
+
   Future<void> setThemeMode(ThemeMode themeMode) async {
     await _storage.saveThemeMode(themeMode);
     state = AppSettingsState(locale: state.locale, themeMode: themeMode);
