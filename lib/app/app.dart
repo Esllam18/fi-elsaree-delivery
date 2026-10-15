@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../core/localization/app_localizations.dart';
 import '../core/settings/app_settings_controller.dart';
 import '../core/theme/app_theme.dart';
 import 'router/app_router.dart';
@@ -16,7 +16,7 @@ class FiElSareeApp extends ConsumerWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      onGenerateTitle: (context) => AppLocalizations.of(context).appName,
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: settings.themeMode,
