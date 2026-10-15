@@ -1,29 +1,53 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../app/router/app_routes.dart';
 import '../../../core/config/app_assets.dart';
 import '../../../core/localization/context_extensions.dart';
+import '../../../core/settings/app_settings_controller.dart';
 import '../../../core/theme/app_durations.dart';
 import '../../../core/theme/app_spacing.dart';
 import 'widgets/splash_brand.dart';
 import 'widgets/splash_loader.dart';
 import 'widgets/splash_responsive.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   bool _visible = false;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) setState(() => _visible = true);
+      if (!mounted) return;
+      setState(() => _visible = true);
+      unawaited(_continue());
     });
+  }
+
+  Future<void> _continue() async {
+    await Future<void>.delayed(const Duration(milliseconds: 1200));
+    if (!mounted) return;
+
+    final storage = ref.read(firstRunStorageProvider);
+    final route = !storage.hasSelectedLocale
+        ? AppRoutes.language
+        : !storage.hasSelectedTheme
+            ? AppRoutes.themeSelection
+            : !storage.onboardingCompleted
+                ? AppRoutes.onboarding
+                : AppRoutes.sessionGate;
+
+    context.go(route);
   }
 
   @override
