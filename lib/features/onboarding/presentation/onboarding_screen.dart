@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router/app_routes.dart';
+import '../../../core/localization/context_extensions.dart';
 import '../../../core/settings/app_settings_controller.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/ui/buttons/app_button.dart';
@@ -26,8 +27,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ar = Localizations.localeOf(context).languageCode == 'ar';
-    final pages = ar ? _arabicPages : _englishPages;
+    final l10n = context.l10n;
+    final pages = [
+      _OnboardingData(Icons.shopping_bag_rounded, l10n.onboardingTitle1,
+          l10n.onboardingBody1),
+      _OnboardingData(Icons.delivery_dining_rounded, l10n.onboardingTitle2,
+          l10n.onboardingBody2),
+      _OnboardingData(Icons.location_on_rounded, l10n.onboardingTitle3,
+          l10n.onboardingBody3),
+    ];
     final last = _index == pages.length - 1;
 
     return Scaffold(
@@ -48,7 +56,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     alignment: AlignmentDirectional.centerEnd,
                     child: TextButton(
                       onPressed: () => _finish(context),
-                      child: Text(ar ? 'تخطي' : 'Skip'),
+                      child: Text(l10n.skip),
                     ),
                   ),
                   Expanded(
@@ -81,9 +89,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   AppButton(
-                    label: last
-                        ? (ar ? 'ابدأ الآن' : 'Get started')
-                        : (ar ? 'التالي' : 'Next'),
+                    label: last ? l10n.getStarted : l10n.next,
                     onPressed: () {
                       if (last) {
                         _finish(context);
@@ -117,42 +123,6 @@ class _OnboardingData {
   final String body;
 }
 
-const _arabicPages = [
-  _OnboardingData(
-    Icons.shopping_bag_rounded,
-    'كل احتياجاتك في مكان واحد',
-    'اطلب احتياجاتك اليومية بسهولة، وسيهتم في السريع بالباقي.',
-  ),
-  _OnboardingData(
-    Icons.delivery_dining_rounded,
-    'توصيل سريع وواضح',
-    'تابع طلبك خطوة بخطوة من لحظة الطلب وحتى وصوله إليك.',
-  ),
-  _OnboardingData(
-    Icons.location_on_rounded,
-    'اطلب من مكانك',
-    'احفظ عناوينك وكرر طلباتك بسهولة لتجربة أسرع كل مرة.',
-  ),
-];
-
-const _englishPages = [
-  _OnboardingData(
-    Icons.shopping_bag_rounded,
-    'Everything you need, in one place',
-    'Order your daily needs easily and let Fi ElSaree handle the rest.',
-  ),
-  _OnboardingData(
-    Icons.delivery_dining_rounded,
-    'Fast, clear delivery',
-    'Follow your order step by step from placement to your doorstep.',
-  ),
-  _OnboardingData(
-    Icons.location_on_rounded,
-    'Order from where you are',
-    'Save your addresses and repeat orders easily for a faster experience.',
-  ),
-];
-
 class _OnboardingPage extends StatelessWidget {
   const _OnboardingPage({required this.data});
   final _OnboardingData data;
@@ -171,7 +141,7 @@ class _OnboardingPage extends StatelessWidget {
           height: visualSize,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: theme.colorScheme.primaryContainer.withValues(alpha: .55),
+            color: theme.colorScheme.primaryContainer.withOpacity(.55),
           ),
           alignment: Alignment.center,
           child: Container(
@@ -182,7 +152,7 @@ class _OnboardingPage extends StatelessWidget {
               color: theme.colorScheme.surface,
               boxShadow: [
                 BoxShadow(
-                  color: theme.colorScheme.primary.withValues(alpha: .10),
+                  color: theme.colorScheme.primary.withOpacity(.10),
                   blurRadius: 28,
                   offset: const Offset(0, 12),
                 ),
