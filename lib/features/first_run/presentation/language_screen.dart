@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router/app_routes.dart';
+import '../../../core/localization/context_extensions.dart';
 import '../../../core/settings/app_settings_controller.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/ui/buttons/app_button.dart';
@@ -20,6 +21,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return Scaffold(
       body: SafeArea(
@@ -36,17 +38,15 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                       size: 44, color: theme.colorScheme.primary),
                   const SizedBox(height: AppSpacing.lg),
                   Text(
-                    'اختر لغتك',
+                    l10n.languageTitle,
                     textAlign: TextAlign.center,
-                    textDirection: TextDirection.rtl,
                     style: theme.textTheme.headlineSmall
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Choose your language',
+                    l10n.languageSubtitle,
                     textAlign: TextAlign.center,
-                    textDirection: TextDirection.ltr,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -54,8 +54,8 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                   const SizedBox(height: AppSpacing.xl),
                   _LanguageCard(
                     selected: _selected == 'ar',
-                    title: 'العربية',
-                    subtitle: 'متابعة التطبيق باللغة العربية',
+                    title: l10n.arabic,
+                    subtitle: l10n.arabicSubtitle,
                     direction: TextDirection.rtl,
                     alignment: Alignment.centerRight,
                     onTap: () => setState(() => _selected = 'ar'),
@@ -63,15 +63,15 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                   const SizedBox(height: AppSpacing.md),
                   _LanguageCard(
                     selected: _selected == 'en',
-                    title: 'English',
-                    subtitle: 'Continue in English',
+                    title: l10n.english,
+                    subtitle: l10n.englishSubtitle,
                     direction: TextDirection.ltr,
                     alignment: Alignment.centerLeft,
                     onTap: () => setState(() => _selected = 'en'),
                   ),
                   const Spacer(flex: 2),
                   AppButton(
-                    label: _selected == 'ar' ? 'متابعة' : 'Continue',
+                    label: _selected == 'ar' ? l10n.continueLabel : 'Continue',
                     onPressed: () async {
                       await ref
                           .read(appSettingsProvider.notifier)
