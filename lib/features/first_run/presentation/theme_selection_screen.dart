@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router/app_routes.dart';
+import '../../../core/localization/context_extensions.dart';
 import '../../../core/settings/app_settings_controller.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/ui/buttons/app_button.dart';
@@ -21,7 +22,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+    final l10n = context.l10n;
 
     return Scaffold(
       body: SafeArea(
@@ -38,16 +39,14 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                       size: 44, color: theme.colorScheme.primary),
                   const SizedBox(height: AppSpacing.lg),
                   Text(
-                    isArabic ? 'اختر المظهر المناسب لك' : 'Choose your appearance',
+                    l10n.themeTitle,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.headlineSmall
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    isArabic
-                        ? 'يمكنك تغييره لاحقًا من الإعدادات'
-                        : 'You can change it later in settings',
+                    l10n.themeSubtitle,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -60,7 +59,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                         child: _ThemeCard(
                           selected: _selected == ThemeMode.light,
                           icon: Icons.light_mode_rounded,
-                          label: isArabic ? 'فاتح' : 'Light',
+                          label: l10n.lightTheme,
                           onTap: () => _select(ThemeMode.light),
                         ),
                       ),
@@ -69,7 +68,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                         child: _ThemeCard(
                           selected: _selected == ThemeMode.dark,
                           icon: Icons.dark_mode_rounded,
-                          label: isArabic ? 'داكن' : 'Dark',
+                          label: l10n.darkTheme,
                           onTap: () => _select(ThemeMode.dark),
                         ),
                       ),
@@ -77,7 +76,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
                   ),
                   const Spacer(flex: 2),
                   AppButton(
-                    label: isArabic ? 'متابعة' : 'Continue',
+                    label: l10n.continueLabel,
                     onPressed: () async {
                       await ref
                           .read(appSettingsProvider.notifier)
@@ -96,7 +95,7 @@ class _ThemeSelectionScreenState extends ConsumerState<ThemeSelectionScreen> {
 
   void _select(ThemeMode mode) {
     setState(() => _selected = mode);
-    ref.read(appSettingsProvider.notifier).setThemeMode(mode);
+    ref.read(appSettingsProvider.notifier).previewThemeMode(mode);
   }
 }
 
